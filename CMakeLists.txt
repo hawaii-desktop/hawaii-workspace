@@ -39,6 +39,7 @@ set(QT_MIN_VERSION "5.6.0")
 set(GREENISLAND_MIN_VERSION "0.7.90")
 set(HAWAII_MIN_VERSION "0.6.90")
 set(POLKITQT_MIN_VERSION "0.103.0")
+set(KF5_MIN_VERSION "5.2.0")
 
 # ECM
 find_package(ECM ${ECM_MIN_VERSION} REQUIRED NO_MODULE)
@@ -93,6 +94,9 @@ find_package(PolkitQt5-1 ${POLKITQT_MIN_VERSION} REQUIRED)
 # Find Qt5GStreamer for hawaii-screencap
 find_package(Qt5GStreamer)
 
+# Find KF5DBusAddons
+find_package(KF5DBusAddons ${KF5_MIN_VERSION} REQUIRED)
+
 # Find systemd
 if(ENABLE_SYSTEMD)
     pkg_check_modules(systemd libsystemd-daemon)
@@ -125,6 +129,13 @@ if (NOT DEFINED GSETTINGS_SCHEMA_DIR)
     set(GSETTINGS_SCHEMA_DIR "${_gio_prefix}/share/glib-2.0/schemas")
 endif()
 message(STATUS "GSettings schemas directory: ${GSETTINGS_SCHEMA_DIR}")
+
+# Find D-Bus session bus services directory
+if(NOT DEFINED DBUS_SESSION_BUS_SERVICES_DIR)
+    pkg_check_modules(dbus dbus-1 REQUIRED)
+    execute_process(COMMAND ${PKG_CONFIG_EXECUTABLE} --variable=session_bus_services_dir dbus-1 OUTPUT_VARIABLE DBUS_SESSION_BUS_SERVICES_DIR)
+    string(REGEX REPLACE "[ \t\n]+" "" DBUS_SESSION_BUS_SERVICES_DIR ${DBUS_SESSION_BUS_SERVICES_DIR})
+endif()
 
 # Subdirectories
 add_subdirectory(data)

@@ -15,7 +15,8 @@ target_link_libraries(hawaii-screencast
                       Qt5::Core
                       Qt5::Gui
                       GreenIsland::Client
-                      Qt5GStreamerUtils)
+                      Qt5GStreamerUtils
+                      KF5::DBusAddons)
 
 install(TARGETS hawaii-screencast
         DESTINATION ${CMAKE_INSTALL_BINDIR})

@@ -1,0 +1,3 @@
+[D-BUS Service]
+Name=org.hawaiios.Screenshot
+Exec=@KDE_INSTALL_FULL_BINDIR@/hawaii-screenshot --interactive

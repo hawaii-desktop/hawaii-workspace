@@ -30,9 +30,12 @@
 #include <QtGui/QGuiApplication>
 #include <QtGui/QImage>
 #include <QtGui/QScreen>
+#include <QtGui/QWindow>
 #include <QtQml/QQmlContext>
 
 #include <GreenIsland/Client/Output>
+
+#include <KF5/KDBusAddons/KDBusService>
 
 #include "screenshooter.h"
 
@@ -72,7 +75,9 @@ Screenshooter::Screenshooter(QObject *parent)
     , m_initialized(false)
     , m_interactive(false)
     , m_inProgress(false)
+    , m_service(Q_NULLPTR)
     , m_engine(new QQmlApplicationEngine(this))
+    , m_window(Q_NULLPTR)
     , m_thread(new QThread())
     , m_connection(Client::ClientConnection::fromQt())
     , m_registry(new Client::Registry(this))
@@ -173,6 +178,15 @@ void Screenshooter::initialize()
 {
     if (m_initialized)
         return;
+
+    // D-Bus service
+    m_service = new KDBusService(KDBusService::Unique, this);
+    connect(m_service, &KDBusService::activateRequested, this, [this](QStringList, QString) {
+        // Raise the window, Wayland compositors that implement the Qt Surface Extension
+        // protocol such as Green Island will raise the window
+        if (m_window)
+            m_window->raise();
+    });
 
     // Interfaces
     connect(m_registry, &Client::Registry::interfacesAnnounced,
@@ -287,6 +301,7 @@ void Screenshooter::interfacesAnnounced()
         m_engine->addImageProvider(QLatin1String("screenshooter"), m_imageProvider);
         m_engine->rootContext()->setContextProperty(QLatin1String("Screenshooter"), this);
         m_engine->load(QUrl(QLatin1String("qrc:/qml/main.qml")));
+        m_window = qobject_cast<QWindow *>(m_engine->rootObjects().at(0));
     } else {
         QTimer::singleShot(m_cliOptions.delay * 1000, this, [this] {
             takeScreenshot(m_cliOptions.what, m_cliOptions.pointer, m_cliOptions.border);

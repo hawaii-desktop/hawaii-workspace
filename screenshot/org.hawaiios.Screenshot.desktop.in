@@ -11,5 +11,6 @@ TryExec=hawaii-screenshot
 Terminal=false
 StartupNotify=true
 OnlyShowIn=X-Hawaii;
+DBusActivatable=true
 
 #TRANSLATIONS_DIR=translations

@@ -33,16 +33,21 @@ Make sure you have Qt >= 5.6.0 with the following modules:
 The following modules from KDE:
 
 * [polkit-qt5](http://quickgit.kde.org/?p=polkit-qt-1.git)
+* [kdbusaddons](http://quickgit.kde.org/?p=kdbusaddons.git)
 
 The following modules from GStreamer:
 
 * [qt-gstreamer](https://cgit.freedesktop.org/gstreamer/qt-gstreamer)
 
-And the following requirements from Hawaii:
+The following requirements from Hawaii:
 
 * [greenisland](https://github.com/greenisland/greenisland.git)
 * [fluid](https://github.com/hawaii-desktop/fluid.git)
 * [libhawaii](https://github.com/hawaii-desktop/libhawaii.git)
+
+Other requirements:
+
+* [dbus](https://cgit.freedesktop.org/dbus/dbus/)
 
 ## Build and installation
 

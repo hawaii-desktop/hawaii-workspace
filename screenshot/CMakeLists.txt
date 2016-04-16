@@ -32,7 +32,8 @@ target_link_libraries(hawaii-screenshot
                       Qt5::Gui
                       Qt5::Qml
                       Qt5::Quick
-                      GreenIsland::Client)
+                      GreenIsland::Client
+                      KF5::DBusAddons)
 
 install(TARGETS hawaii-screenshot
         DESTINATION ${CMAKE_INSTALL_BINDIR})

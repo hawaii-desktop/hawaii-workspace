@@ -39,6 +39,9 @@
 
 #include "imageprovider.h"
 
+class QWindow;
+class KDBusService;
+
 using namespace GreenIsland;
 
 class Screenshooter : public QObject
@@ -70,7 +73,9 @@ private:
     bool m_initialized;
     bool m_interactive;
     bool m_inProgress;
+    KDBusService *m_service;
     QQmlApplicationEngine *m_engine;
+    QWindow *m_window;
     QThread *m_thread;
     Client::ClientConnection *m_connection;
     Client::Registry *m_registry;

@@ -30,6 +30,8 @@
 
 #include <Qt5GStreamer/QGst/Init>
 
+#include <KF5/KDBusAddons/KDBusService>
+
 #include "config.h"
 #include "screencast.h"
 
@@ -61,6 +63,9 @@ int main(int argc, char *argv[])
         qCritical("This application requires a Wayland session");
         return 1;
     }
+
+    // D-Bus service
+    new KDBusService(KDBusService::Unique, qGuiApp);
 
     // Initialize QtGStreamer
     QGst::init(&argc, &argv);
