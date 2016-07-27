@@ -218,7 +218,7 @@ void Screencast::start()
             QGst::BufferFlags flags(QGst::BufferFlagLive);
             gstBuffer->setFlags(flags);
 
-            //GST_BUFFER_PTS(buffer) = now;
+            GST_BUFFER_PTS(buffer->object<QGst::Buffer>()) = now;
 
             QGst::MapInfo mapInfo;
             if (gstBuffer->map(mapInfo, QGst::MapWrite)) {
