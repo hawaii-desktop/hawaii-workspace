@@ -37,7 +37,7 @@ ApplicationWindow {
     id: window
     title: qsTr("Screenshot")
     width: FluidUi.Units.dp(500)
-    height: FluidUi.Units.dp(500)
+    height: FluidUi.Units.dp(600)
     minimumWidth: width
     minimumHeight: height
     maximumWidth: width
