@@ -78,7 +78,6 @@ ApplicationWindow {
                 onClicked: {
                     if (saveAction.checked)
                         fileDialog.open();
-                    //else if (copyAction.checked(
                 }
             }
         }
